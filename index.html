@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Happy Birthday Habiba 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-pink: #ff758c;
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    html { 
+      scroll-behavior: smooth; 
+      height: 100%; 
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch; 
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #ffd6df 0%, #ffc2d1 50%, #ffdce5 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* الخلفية العائمة: صعود مستقيم وألوان زاهية */
+    .floating-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .floating-item {
+      position: absolute; bottom: -150px; white-space: nowrap;
+      font-weight: 800; opacity: 0.9; /* ألوان زاهية وواضحة */
+      animation: straightUpFloat var(--duration) linear infinite;
+      text-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+      will-change: transform;
+    }
+    @keyframes straightUpFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-150vh); }
+    }
+
+    section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; position: relative; z-index: 2; }
+
+    .card-container { width: 100%; max-width: 450px; height: 550px; perspective: 1500px; position: relative; }
+    .card { width: 100%; height: 100%; position: relative; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+    .card.flipped { transform: rotateY(180deg); }
+
+    .card-front, .card-back {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border); border-radius: 40px;
+      padding: 40px 25px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 20px 45px rgba(255, 117, 140, 0.2);
+    }
+    .card-back { transform: rotateY(180deg); background: rgba(255, 255, 255, 0.35); }
+
+    .btn-spin {
+      background: #fff; color: var(--primary-pink); border: none; padding: 12px 30px;
+      border-radius: 50px; font-weight: 800; margin-top: 25px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .book-wrapper { margin: 20px auto; width: 150px; height: 200px; }
+    .book-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; border: 4px solid #fff; }
+
+    .message-text { color: #444; font-size: 1.3rem; line-height: 2; font-weight: 800; }
+
+    .nav { position: fixed; left: 15px; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 15px; }
+    .nav-dot { 
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); 
+      cursor: pointer; transition: all 0.4s ease;
+    }
+    .nav-dot.active { background: #fff; height: 25px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.8); }
+
+    .rose-particle {
+      position: fixed; bottom: -50px; pointer-events: none; z-index: 9999;
+      font-size: 30px; animation: roseExplode 2.5s cubic-bezier(0.1, 0.5, 0.2, 1) forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes roseExplode {
+      0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; transform: scale(1.2); }
+      100% { transform: translate(var(--target-x), -120vh) scale(1) rotate(var(--target-deg)); opacity: 0; }
+    }
+
+    .touch-emoji {
+      position: fixed; pointer-events: none; z-index: 9999; font-size: 28px;
+      animation: emojiFloatUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes emojiFloatUp {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      20% { transform: translate(-50%, -80%) scale(1.2); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--random-x)), -200px) scale(1) rotate(var(--random-deg)); opacity: 0; }
+    }
+
+    .video-wrapper { 
+      width: 100%; position: relative; padding-bottom: 177.77%; height: 0; 
+      border-radius: 25px; overflow: hidden; margin: 20px 0; background: #000;
+    }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    .gift-box { width: 80px; height: 80px; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 35px; margin: 20px auto 0; cursor: pointer; }
+    .gift-box.active { width: 100%; height: 60px; }
+    .gift-input { display: none; width: 100%; border: none; background: transparent; outline: none; text-align: center; color: var(--primary-pink); font-size: 18px; font-weight: 800; font-family: 'Cairo'; }
+    .gift-box.active .gift-input { display: block; }
+
+    #s4 { display: none; opacity: 0; transition: 1s; }
+    #s4.visible { display: flex; opacity: 1; }
+  </style>
+</head>
+<body onclick="spawnEmoji(event)">
+
+  <div class="floating-container" id="floatLayer"></div>
+
+  <div class="nav" id="mainNav">
+    <div class="nav-dot active" data-sec="s1" onclick="scrollToSec('s1')"></div>
+    <div class="nav-dot" data-sec="s2" onclick="scrollToSec('s2')"></div>
+    <div class="nav-dot" data-sec="s3" onclick="scrollToSec('s3')"></div>
+  </div>
+
+  <section id="s1">
+    <div class="card-container">
+      <div class="card" id="mainCard">
+        <div class="card-front">
+          <h2>لأجدع صديقة ✨</h2>
+          <h1 style="font-size: 2.8rem; font-weight: 800;">حبيبة</h1>
+          <p>كل سنة وأنتِ طيبة وناجحة دايماً 🎂</p>
+          <div class="book-wrapper">
+            <img src="https://i.ibb.co/1JB4xdLm/58e65ce405eec86534fb3ce5dbe32041.jpg" alt="Habiba">
+          </div>
+          <button class="btn-spin" onclick="flipCard()">شوفي الرسالة ✉️</button>
+        </div>
+        <div class="card-back">
+          <h2 style="margin-bottom: 30px; color: var(--primary-pink); font-size: 1.8rem;">تقدير 🤜🤛</h2>
+          <div class="message-text">
+            "سنة جديدة، وطموح جديد.. <br>
+            كل سنة وأنتِ في أحسن حال <br>
+            ومحققة كل أحلامك"
+          </div>
+          <button class="btn-spin" onclick="flipCard()">رجوع ↺</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="card-front" style="position: relative; height: auto; max-width: 450px;">
+      <div style="font-size: 4rem;">🚀🏆</div>
+      <h1 style="font-size: 2.2rem;">مشوار الـ 20</h1>
+      <p style="font-size: 1.1rem; line-height: 1.8;">سنة جديدة يعني طموح جديد.. <br> كلي ثقة إنك هتوصلي لكل أحلامك ✨</p>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="card-front" style="position: relative; height: auto; max-width: 450px;">
+      <div style="font-size: 3.5rem;">🎁</div>
+      <h1>افتحي المفاجأة</h1>
+      <p>اكتبي الكود السري عشان تشوفي الفيديو</p>
+      <div class="gift-box" id="gift" onclick="this.classList.add('active'); document.getElementById('giftInput').focus();">
+        <span class="gift-emoji">🎁</span>
+        <input type="number" pattern="\d*" inputmode="numeric" class="gift-input" id="giftInput" placeholder="الكود هنا..." oninput="checkCode(this)">
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="card-front" style="position: relative; height: auto; max-width: 450px;">
+      <div style="font-size: 2.2rem;">🎬 ذكرى ليكي</div>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/g34gq3CGmSI?rel=0&modestbranding=1&controls=1&showinfo=0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen="true"></iframe>
+      </div>
+      <p style="font-weight: 800;">عقبال الـ 100 سنة يا صديقتي! 🌹</p>
+    </div>
+  </section>
+
+  <script>
+    function roseExplosion() {
+      for(let i=0; i<100; i++) {
+        setTimeout(() => {
+          const rose = document.createElement('div');
+          rose.className = 'rose-particle';
+          rose.innerText = '🌹';
+          rose.style.left = Math.random() * 100 + 'vw';
+          rose.style.setProperty('--target-x', (Math.random() * 400 - 200) + 'px');
+          rose.style.setProperty('--target-deg', (Math.random() * 720 - 360) + 'deg');
+          document.body.appendChild(rose);
+          setTimeout(() => rose.remove(), 2500);
+        }, i * 20);
+      }
+    }
+
+    function spawnEmoji(e) {
+      const emojiList = ["❤️", "💖", "🌸", "✨", "🎈", "🌹"];
+      const el = document.createElement('div');
+      el.className = 'touch-emoji';
+      el.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+      el.style.left = e.clientX + 'px'; el.style.top = e.clientY + 'px';
+      const randomX = (Math.random() * 100 - 50) + 'px';
+      const randomDeg = (Math.random() * 60 - 30) + 'deg';
+      el.style.setProperty('--random-x', randomX);
+      el.style.setProperty('--random-deg', randomDeg);
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }
+
+    // الخلفية العائمة المحدثة
+    const floatItemsList = ["🎂", "🎁", "🌹", "🌸", "كل سنة وأنتِ طيبة", "✨", "💖", "حبيبة ✨"];
+    function createFloatingItems() {
+      const floatLayer = document.getElementById('floatLayer');
+      for (let i = 0; i < 45; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'floating-item';
+          el.innerText = floatItemsList[Math.floor(Math.random() * floatItemsList.length)];
+          el.style.left = (Math.random() * 100) + "vw";
+          const duration = 15 + Math.random() * 20; // حركة أهدأ
+          el.style.setProperty('--duration', duration + "s");
+          el.style.fontSize = (18 + Math.random() * 15) + "px"; // حجم أكبر وأوضح
+          
+          floatLayer.appendChild(el);
+          setTimeout(() => el.remove(), duration * 1000);
+        }, i * 400);
+      }
+      setTimeout(createFloatingItems, 25000);
+    }
+    createFloatingItems();
+
+    function flipCard() { document.getElementById('mainCard').classList.toggle('flipped'); }
+
+    function checkCode(input) {
+      if (input.value === "5797418438") {
+        roseExplosion();
+        const s4 = document.getElementById('s4');
+        s4.style.display = 'flex';
+        setTimeout(() => { 
+          s4.classList.add('visible');
+          if(!document.querySelector('[data-sec="s4"]')) {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot'; dot.dataset.sec = 's4';
+            dot.onclick = () => scrollToSec('s4');
+            document.getElementById('mainNav').appendChild(dot);
+          }
+          scrollToSec('s4'); 
+        }, 500);
+      }
+    }
+
+    function scrollToSec(id) {
+      const target = document.getElementById(id);
+      if(target) window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      const dots = document.querySelectorAll('.nav-dot');
+      const sections = document.querySelectorAll('section');
+      let current = "";
+      sections.forEach(s => {
+        if(getComputedStyle(s).display !== 'none') {
+          if(window.pageYOffset >= s.offsetTop - (window.innerHeight / 2)) current = s.id;
+        }
+      });
+      dots.forEach(d => d.classList.toggle('active', d.dataset.sec === current));
+    }, { passive: true });
+  </script>
+</body>
+</html>
