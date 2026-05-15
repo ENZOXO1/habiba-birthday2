@@ -30,18 +30,21 @@
       overflow-x: hidden;
     }
 
-    /* الخلفية العائمة: صعود مستقيم وألوان زاهية */
+    /* الخلفية الجديدة: ظهور واختفاء (Fading) */
     .floating-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
     .floating-item {
-      position: absolute; bottom: -150px; white-space: nowrap;
-      font-weight: 800; opacity: 0.9; /* ألوان زاهية وواضحة */
-      animation: straightUpFloat var(--duration) linear infinite;
-      text-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
-      will-change: transform;
+      position: absolute;
+      white-space: nowrap;
+      font-weight: 800;
+      opacity: 0; /* تبدأ مخفية */
+      animation: fadeInOut var(--duration) ease-in-out infinite;
+      text-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+      will-change: opacity;
     }
-    @keyframes straightUpFloat {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-150vh); }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0.9; transform: scale(1.1); } /* تظهر بوضوح وتكبر قليلاً */
     }
 
     section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; position: relative; z-index: 2; }
@@ -211,25 +214,31 @@
       setTimeout(() => el.remove(), 1200);
     }
 
-    // الخلفية العائمة المحدثة
+    // تعديل الخلفية لتظهر وتختفي في مكانها
     const floatItemsList = ["🎂", "🎁", "🌹", "🌸", "كل سنة وأنتِ طيبة", "✨", "💖", "حبيبة ✨"];
     function createFloatingItems() {
       const floatLayer = document.getElementById('floatLayer');
-      for (let i = 0; i < 45; i++) {
+      for (let i = 0; i < 40; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
           el.className = 'floating-item';
           el.innerText = floatItemsList[Math.floor(Math.random() * floatItemsList.length)];
-          el.style.left = (Math.random() * 100) + "vw";
-          const duration = 15 + Math.random() * 20; // حركة أهدأ
+          
+          // توزيع عشوائي في كامل الشاشة
+          el.style.left = (Math.random() * 90) + "vw";
+          el.style.top = (Math.random() * 90) + "vh";
+          
+          const duration = 4 + Math.random() * 4; // سرعة الظهور والاختفاء
           el.style.setProperty('--duration', duration + "s");
-          el.style.fontSize = (18 + Math.random() * 15) + "px"; // حجم أكبر وأوضح
+          el.style.fontSize = (20 + Math.random() * 15) + "px";
           
           floatLayer.appendChild(el);
+          // نحذف العنصر بعد انتهاء دورة الأنيميشن لضمان تجدد الأماكن
           setTimeout(() => el.remove(), duration * 1000);
-        }, i * 400);
+        }, i * 300);
       }
-      setTimeout(createFloatingItems, 25000);
+      // استمرار التوليد في أماكن جديدة
+      setTimeout(createFloatingItems, 5000);
     }
     createFloatingItems();
 
